@@ -12,8 +12,14 @@ import com.asint.BoxOffice.Movies.Repository.MoviesRepository;
 public class MoviesServiceImpl implements MoviesService{
 	
 	
+	
+	private final MoviesRepository moviesRepository;
+
 	@Autowired
-	MoviesRepository moviesRepository;
+	public MoviesServiceImpl(MoviesRepository moviesRepository) {
+		super();
+		this.moviesRepository = moviesRepository;
+	}
 
 	@Override
 	public Movie registerMovie(Movie movie) {

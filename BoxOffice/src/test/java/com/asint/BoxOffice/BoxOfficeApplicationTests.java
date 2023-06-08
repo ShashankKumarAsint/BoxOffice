@@ -22,10 +22,15 @@ import com.asint.BoxOffice.Movies.Model.Movie;
 @SpringBootTest
 class BoxOfficeApplicationTests {
 
-	@Autowired
-	MoviesController moviesController;
+	private final MoviesController moviesController;
 	
-	Movie movie;
+	@Autowired
+	public BoxOfficeApplicationTests(MoviesController moviesController) {
+		super();
+		this.moviesController = moviesController;
+	}
+
+	private Movie movie;
 	
 	@Test
 	public void testRegisterMovie() {

@@ -20,9 +20,15 @@ import com.asint.BoxOffice.Movies.Service.MoviesService;
 @RequestMapping("/movies")
 public class MoviesController {
 	
-	@Autowired
-	MoviesService moviesService;
 	
+	private final MoviesService moviesService;
+	
+	@Autowired
+	public MoviesController(MoviesService moviesService) {
+		super();
+		this.moviesService = moviesService;
+	}
+
 	@PostMapping
 	public ResponseEntity<Movie> registerMovie(@RequestBody Movie movie){
 		
