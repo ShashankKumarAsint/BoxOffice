@@ -23,7 +23,7 @@ public class MoviesController {
 	
 	private final MoviesService moviesService;
 	
-	@Autowired
+	
 	public MoviesController(MoviesService moviesService) {
 		super();
 		this.moviesService = moviesService;

@@ -15,7 +15,7 @@ public class MoviesServiceImpl implements MoviesService{
 	
 	private final MoviesRepository moviesRepository;
 
-	@Autowired
+	
 	public MoviesServiceImpl(MoviesRepository moviesRepository) {
 		super();
 		this.moviesRepository = moviesRepository;
