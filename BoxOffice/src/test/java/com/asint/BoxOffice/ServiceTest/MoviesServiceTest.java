@@ -5,14 +5,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
-
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-
 import com.asint.BoxOffice.Movies.Model.Genre;
 import com.asint.BoxOffice.Movies.Model.Movie;
 import com.asint.BoxOffice.Movies.Repository.MoviesRepository;
@@ -56,7 +55,7 @@ public class MoviesServiceTest {
 		assertThrows(RuntimeException.class, ()->moviesService.registerMovie(movie));
 		
 	}
-	
+	@Test
 	public void testGetMovie() {
 		
 		Optional<Movie> movieOpt = Optional.of(new Movie());
@@ -69,19 +68,64 @@ public class MoviesServiceTest {
 		assertTrue(moviesService.getMovie(1).equals(movieOpt.get()));
 		
 	}
-	
+	@Test
 	public void testGetMovie2() {
 		
-		when(movieRepository.findById(1)).thenThrow(RuntimeException.class);
+		when(movieRepository.findById(1)).thenReturn(null);
 		
 		assertThrows(RuntimeException.class, ()-> moviesService.getMovie(1));
 		
 	}
-//	
-//	public void testGetAllMovies() {}
-//	
-//	public void testRemoveMovie() {}
 	
+	@Test
+	public void testGetAllMovies() {
+		
+		when(movieRepository.findAll()).thenReturn(null);
+		
+		assertThrows(RuntimeException.class, ()-> moviesService.getAllMovies());
+		
+	}
 	
+	@Test
+	public void testGetAllMovies2() {
+		
+		Movie movie = new Movie();
+		
+		List<Movie> movies = new ArrayList<>();
+		
+		movies.add(movie);
+		
+		when(movieRepository.findAll()).thenReturn(movies);
+		
+		List<Movie> moviesResponse = moviesService.getAllMovies();
+		
+		assertTrue(!moviesResponse.isEmpty());
+		
+	}
+	
+	@Test
+	public void testRemoveMovie() {
+		
+		Optional<Movie> movieOpt = Optional.of(new Movie());
+		movieOpt.get().setGenre(Genre.ACTION);
+		movieOpt.get().setRuntimeMinutes(10);
+		movieOpt.get().setTitle("Superman");
+		
+		Movie movie = movieOpt.get();
+
+		when(movieRepository.findById(1)).thenReturn(movieOpt);
+		
+		assertTrue(movie.equals(moviesService.removeMovie(1)));
+		
+	}
+	
+	@Test
+	public void testRemoveMovie2() {
+
+		when(movieRepository.findById(1)).thenReturn(null);
+		
+		assertThrows(RuntimeException.class, ()-> moviesService.removeMovie(1));
+		
+	}
 	
 }
