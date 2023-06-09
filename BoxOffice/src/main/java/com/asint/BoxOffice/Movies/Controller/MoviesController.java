@@ -20,9 +20,7 @@ import com.asint.BoxOffice.Movies.Service.MoviesService;
 @RequestMapping("/movies")
 public class MoviesController {
 	
-	
 	private final MoviesService moviesService;
-	
 	
 	public MoviesController(MoviesService moviesService) {
 		super();
@@ -30,40 +28,40 @@ public class MoviesController {
 	}
 
 	@PostMapping
-	public ResponseEntity<Movie> registerMovie(@RequestBody Movie movie){
+	public Movie registerMovie(@RequestBody Movie movie){
 		
 		if(movie.getTitle()==null || movie.getGenre()==null || movie.getRuntimeMinutes()==null ) throw new RuntimeException("Please enter all the required details");
 		
 		Movie registeredMovie = moviesService.registerMovie(movie);
 		
-		return new ResponseEntity<>(registeredMovie, HttpStatus.CREATED);
+		return registeredMovie;
 		
 	}
 	
 	@GetMapping("/{movieId}")
-	public ResponseEntity<Movie> viewMovie(@PathVariable Integer movieId){
+	public Movie viewMovie(@PathVariable Integer movieId){
 				
 		Movie movie = moviesService.getMovie(movieId);
 		
-		return new ResponseEntity<>(movie, HttpStatus.CREATED);
+		return movie;
 		
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<Movie>> viewAllMovies(){
+	public List<Movie> viewAllMovies(){
 				
 		List<Movie> movies = moviesService.getAllMovies();
 		
-		return new ResponseEntity<>(movies, HttpStatus.CREATED);
+		return movies;
 		
 	}
 	
 	@DeleteMapping("/{movieId}")
-	public ResponseEntity<Movie> removeMovie(@PathVariable Integer movieId){
+	public Movie removeMovie(@PathVariable Integer movieId){
 				
 		Movie removedMovie = moviesService.removeMovie(movieId);
 		
-		return new ResponseEntity<>(removedMovie, HttpStatus.CREATED);
+		return removedMovie;
 		
 	}
 
