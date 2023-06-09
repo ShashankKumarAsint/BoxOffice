@@ -55,6 +55,36 @@ package com.asint.BoxOffice.Movies.Model;
 		public void setGenre(Genre genre) {
 			this.genre = genre;
 		}
+
+
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			Movie other = (Movie) obj;
+			if (genre != other.genre)
+				return false;
+			if (movieId == null) {
+				if (other.movieId != null)
+					return false;
+			} else if (!movieId.equals(other.movieId))
+				return false;
+			if (runtimeMinutes == null) {
+				if (other.runtimeMinutes != null)
+					return false;
+			} else if (!runtimeMinutes.equals(other.runtimeMinutes))
+				return false;
+			if (title == null) {
+				if (other.title != null)
+					return false;
+			} else if (!title.equals(other.title))
+				return false;
+			return true;
+		}
 	    
 	    
 
