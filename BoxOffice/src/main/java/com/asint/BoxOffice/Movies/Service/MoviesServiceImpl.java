@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.asint.BoxOffice.Constants.MovieContants;
 import com.asint.BoxOffice.Movies.Model.Movie;
 import com.asint.BoxOffice.Movies.Repository.MoviesRepository;
 
@@ -23,7 +24,7 @@ public class MoviesServiceImpl implements MoviesService{
 	@Override
 	public Movie registerMovie(Movie movie) {
 		
-		if(movie.getRuntimeMinutes()<=0) throw new RuntimeException("Runtime minutes cannot be less than or equal to 0");
+		if(movie.getRuntimeMinutes()<MovieContants.runtime_Minutes) throw new RuntimeException("Runtime minutes cannot be less than or equal to 0");
 		
 		return moviesRepository.save(movie);
 		
